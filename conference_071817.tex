@@ -10,121 +10,199 @@
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \begin{document}
 
-\title{Automated Process Migration in LXC}
+\title{Evaluation and Analysis of Methods for Facial Recognition Applied to Partially Occluded Images}
 
-\author{\IEEEauthorblockN{Anamika Avinash}
+\author{\IEEEauthorblockN{Zahra Siddiqa}
 \textit{Dublin City University}\\
 Dublin, Ireland \\
-anamika.avinash2@mail.dcu.ie
+zahara.hassan2@mail.dcu.ie
 }
 
 \maketitle
 
 \begin{abstract}
-Container technology is a method to execute multiple isolated sets of systems on a control host using a single kernel. This type of isolation facilitates the migration of the process between two containers. Linux Containers (LXC) are considered in this paper. Process migration mechanism can be employed under circumstances which requires the user to offload work from systems with high CPU utilization to idle systems. Using the Checkpoint/Restore In Userspace (CRIU) process migration tool, the intended process for migration is checkpointed and frozen into a set of files and transferred on to the destination system. Following this the CRIU tool rebuilds and executes the process from down-up based on the set of files that were transferred before. This paper assumes a hypothesis that process migration at the container-level is possible and can be automated. After instantiation with necessary experiments in varying scenarios, the paper disproves the hypothesis providing significant rationale.  
+The aim of face recognition is to give a system the capability to detect and identify human faces. Face recognition systems find applications in access and security, criminal identification, target advertising, computer vision and many other fields. It is easier to build a face recognition system when an image contains unobstructed view if the face. However, the probability of finding an image with a partial or occluded face is very high which hinders the performance of the system. This project aims to make a comparative study of existing methods of face recognition. Secondly, the project aims to study the conduct of these algorithms when they are applied on occluded images by randomly cropping out a certain area of an image. Based on this study, it can be verified if the existing methods can be utilized for face recognition of occluded images without having to compromise on the accuracy of the models. This project also confirms the higher degree of precision that can be achieved with the neural networks.
 
 \end{abstract}
 
 \begin{IEEEkeywords}
-process migration, CRIU, LXC.
+Face Recognition; Occlusion; Principal Component Analysis; k Nearest Neighbour; Convolutional Neural Networks;
+
 \end{IEEEkeywords}
 
 \section{Introduction}
 \label{sec: 1.introduction}
-Load balancing, efficient resource utilization and increased performance are the vital features due to which process migration has been gaining increased popularity in the field of distributed systems. This procedure is generally done manually. Automating gives the functionality a positive edge in time consumption, consistency and robustness, to name a few, over the traditional manual method. This paper analyses process migration in Linux containers considering the checkpoint/restore method called CRIU.
-
-\subsection{Containers}
-\label{subsec: 1a.containers}
-Containers employ lightweight operating system level virtualization consisting of a single kernel which permits the existence of multiple isolated user-space systems\cite{Dua2014VirtualizationPaaS}. The isolation provided by it is similar to the ones already in use in virtual machines but in addition to it, much better CPU performance is also a given boon. LXCs are Linux containers where the host system and the containers function on the same Linux kernel as shown in \ref{fig 1: Container}. One of the main advantages of Linux Containers over virtual machines (VM) is the reduced resource overhead. \cite{Dua2014VirtualizationPaaS}
+Unlike face detection which deals with identifying the presence of a face in an image, face recognition deals with the feature extraction and recognition of the face in an image. Facial recognition techniques have proven beneficial predominantly in the field of security. Face recognition is the preferred choice over other biometrics as it is a non intrusive and robust method of identification. As a whole, face recognition can be seen as a classification task with inputs as images and the outputs as identity of people. 
 
 \begin{figure}[h!]
 %\vspace{-0.2cm}
  \centering
- \includegraphics[width = 6cm]{Container.png}
- \caption{Container Architecture (Source:\cite{Ann2015PerformanceMachines})}
- \label{fig 1: Container}
+ \includegraphics[width = 10cm]{Face_Recognition_Architecture.JPG}
+ \caption{ Face Recognition Architecture (Source:\cite{makwana_makwana_2016})}
+ \label{fig 1: face recognition architecture}
 \end{figure}
 
+Face recognition is an extensively researched subject\cite{zhao2003face} \cite{abate20072d}.  Most of the face recognition systems today, perform under unobstructed conditions\cite{phillips2005overview}.In this systems, the faces in the images are directly pointed at the camera. However, in a real world scenario, images seldom contain faces which are unobstructed or  faces that are pointed directly at the camera. Occlusion is defined as the blockage due to an external factor. Occlusion in an image can be due to a number of factors like lighting conditions, glasses, scarves, different poses or even certain facial expressions. Designing a face recognition system that gives accurate results even with occlusion is a challenging task due to the missing facial cues from occluded areas of the face.
 
-\subsection{Process Management} 
-\label{subsec: 1b.process management}
-Process is said to be a program or thread which is being executed in a computing context. Process management is considered to be essential in the functioning of an operating system. Its objective is to administer resources, isolate the processes, permit synchronization and allow them to exchange any form of messages or information they require. 
-
-\subsection{Process Migration}
-\label{subsec: 1d.process migration}
-Process migration, as the name indicates, is the procedure to transfer a running process or processes between machines. It had its origin with the advent of distributed computing which is a specialized field that examines distributed systems which is a model where the components located on a geographically limited computers communicate by passing messages to achieve a goal. 
-It has added advantages such as duplicating processes to increase reliability and stability, moving processes running on sensitive data to a secure instance to increase security and functionality and so on. Process migration finds application in migrating monolith applications to microservices as well \cite{OConnor2017ContinuousPerspective}. According to recent advances in this technology, there are multiple tools which are developed to achieve these goals. A good migration mechanism is based on how efficient it is in terms of time, redundancy, latency and cost. Lower the amount of dependencies, better it is for the user and it decreases the complexity of a software process.
-
-
-\subsection{CRIU} 
-\label{subsec: 1c.criu}
-Checkpoint/Restore in user-space or CRIU is a software tool with pioneering implementation focusing on Higher Availability (HA) \cite{Li2015ComparingAvailability} features for containers which function on the Linux operating systems. High Availabilty is a feature which ensures the operational performance of a system which is agreed upon priorly. As shown in \ref{fig 1: CRIU}, CRIU enables a user to freeze an executing process or a part of it and transfer it as a conglomeration of files on disk\cite{Pickartz2016MigratingCRIU}. This tool also allows snapshots, remote bugging, network load balancing and many more scenarios.
+\subsection{Principal Component Analysis}
+\label{subsec: 1a.Principal Component Analysis}
+Principal Component Analysis: By definition, principal component analysis is a mathematical procedure that uses orthogonal transformation to convert a set of values of possibly correlated M face images into a set of K uncorrelated variables called the Eigenfaces.
+\cite{turk1991face}.Face recognition by PCA is achieved by projecting the test image in the eigenface subspace. Then the distance between the position of test image in eigenspace is compared with the known dataset or the training dataset. Based on this comparison, the person is recognised. PCA gives excellent results in a constrained environment. It is a preferred approach as it is simple, fast and has a high learning capability.
 
 \begin{figure}[h!]
 %\vspace{-0.2cm}
  \centering
- \includegraphics[width = 8cm]{CRIU.pdf}
- \caption{Checkpoint/Restore In Userspace. Source: \cite{Pickartz2016MigratingCRIU}}
- \label{fig 2: CRIU}
+ \includegraphics[width = 9cm]{eigenface.JPG}
+ \caption{ Most significant Eigenfaces}
+ \label{fig 1: eigenface}
 \end{figure}
+	
 
-This paper assumes a hypothesis that process migration at the container-level is possible and can be automated considering the successful adoption of process migration at the host-level. The remainder of the paper is structured as follows. Section \ref{sec: 2.Background} provides a background of the research on the related technologies. Section \ref{sec:3 Analysis Process Migration} describes the experiment conducted  for the analyses of process migration at container-level which includes \ref{subsec:3.1 CRIU in action} CRIU in action and \ref{subsec: 3b. Experimental Setup} Experimental Setup. Section \ref{sec: 4.Conclusion and Future Work} provides the conclusion and future work based on the experiments performed.  
+\subsection{k-Nearest Neighbors } 
+\label{subsec: 1b.Knn}
+k-nearest neighbors is a robust and efficient method used for classification and regression. In this algorithm, the training image data set is separated into multiple classes to predict the classification of a new test image. Knn is one the besttt face recognition methods as it is a non parametric algorithm. This fact is very helpfulll as the data typically does not obey the theoretical assumptions. hence prior knowledge of the data is not required for prediction. the bsis of knn algorithm is feature-similarity  i.e. the closeness of the features of any test image to the training images determines the classification of that test image; where Eucledian distance measure is used to find the the distance in the image space \cite{wang2005euclidean}. The distance between test image features and training image feature is calculated and a distance matrix is formed. The distance matrix is summed up and arranged in an increasing order. Based on the value of k, the first k elements are selected and the test image is classified according to the majority class value. \cite{zhang2007ml}
+
+\subsection{CNN}
+\label{subsec: 1d.CNN}
+Neural networks, is another widely preferred face recognition method because of its non linear approach. Convolutional Neural Networks based systems directly learn from the training dataset that is provided and adopt deep learning algorithms to recognise an image. The accuracy of these systems can be significantly improved by appropriate pre-processing and segmentation of the images and by increasing the number of hidden layers \cite{dean2012large}.
+There are many libraries available to implement convolutional neural networks\cite{2016arXiv160502688full}\cite{Jia:2014:CCA:2647868.2654889}\cite{tensorflow2015-whitepaper}. TensorFlow is an open source library for machine learning developed by Google and is based on deep learning DistBelief framework. A convolutional neural network based on TensorFlow is highly robust and has a high accuracy rate even when the faces in the images are occluded.  It offers high flexibility and is relatively simple to use\cite{tensorflow2015-whitepaper}. An advantage of using convolutional neural networks is that some of the pre-processing steps can be skipped \cite{oliveira2017irish}. Keras is an open source library which runs on top of TensorFlow. Keras makes it easy to build and run convolutional neural networks\cite{chollet2015keras}. 
+
+There has been a lot of research on face recognition systems under unoccluded image conditions. However there has not been enough research on face recognition under occlusion. In this project the methods that have been mentioned above are applied to occluded images. These methods have been chosen as they are state-of-the-art, robust and widely used in the industry. The goal of PCA is to retain only those features that convey the most information\cite{turk1991face}. k Nearest Neighbor algorithm, although is simple in implementation, provides reasonably accurate results\cite{zhang2007ml}.Convolutional neural networks are used for their superior performance and high accuracy\cite{lawrence1997face}.
+
+\subsection{Data} 
+\label{subsec: 1c.Data}
+The dataset used for this project is the Labeled Faces in the Wild dataset, a collection of over 13,000 images of celebrities from the internet. Each face has been labelled and stored under a folder with the name of the person. However, not all people from the dataset have the same number of images. Using the dataset as is, will not yield expected results as any network will not be able to learn and identify a person based on just one image. In order to avoid class imbalance and for the system to train satisfactorily, only few people with most number of images have been selected for this project.(cite: http://vis-www.cs.umass.edu/lfw/). Occluded faces are more complicated to recognise than unoccluded ones. To get an occluded image dataset, the images from the training dataset have been randomly occludedddd. The human brain excels at recognising faces that could be significantly occluded. However most face recognising systems reduce to a chance level accuracy while identifying occluded images
+
+\begin{figure}[h!]
+%\vspace{-0.2cm}
+ \centering
+ \includegraphics[width = 9cm]{dataset.JPG}
+  \caption{ Images from Labeled Faces in the Wild(Source:\cite{LFWTech})}
+ \label{fig 1: dataset}
+\end{figure}
 
 \section{Background}
 \label{sec: 2.Background}
 
-A distributed computing system\cite{Salman2014TheSystems} is a set of computing nodes that are connected across a network. They merge to perform a large number of tasks. Generally, load balancing aims to utilize resources to their maximum potential. Main objective is to distribute the work across the network of nodes to reduce the mean task response duration and obtain higher efficiency. One of the important techniques considered in industry and academia to achieve significant improvement of load balancing measures is \emph{Process Migration}. 
+There are three stages involved in the process of face recognition from an image. They are: (1) face detection (2) feature extraction (3) face recognition. Face detection, as mentioned earlier, is the technology to detect the presence of a human face in an image. Numerous methods can be used to perform face detection and One of the most popular method is to perform face detection is Viola Jones face detector \cite{zafeiriou2015survey}. Although it trains at a slow pace, the advantage of Viola Jones face detector over other methods is swift detection. It involves four key principles- the simple haar features, utilization of integral images and several rounds of boosting for feature extraction and selection, and an attentional cascade to only allow windows with faces\cite{zafeiriou2015survey}.
 
-%start with process migration
-In 2000, Milojicic et al \cite{Milojicic2000ProcessMigration} summarized the important concepts and methodologies and provided an overview by surveying the field of process migration. This survey presents an outline on the details of process migration implementation based on case studies, misconceptions about the field and the actual drawbacks. The concepts include checkpointing and migration mechanism on Linux systems.
+Feature extraction, in simple terms, deals with the removal of all the redundant information from an image, thereby increasing the computation speed and reducing the amount of memory used. Essentially, this stage includes all the pre-processing and normalization of the image. The steps involved are RGB to grayscale transformation, scaling and histogram equalization. Feature extraction is the most complex part of face recognition process. The accuracy of the system is dependent on the method used for feature extraction.
 
-Gerofi et al \cite{Gerofi2010AnEnvironments} put forward a well planned process migration mechanism which comes handy when the process is handling a huge number of network connections. Additionally, an attempt to equalize loads on all the distributed machines was implemented through a decentralized middleware that factors process migration among the cluster nodes.
+Face recognition methods have evolved over time and development of technology. A very simple technique to achieve this is to flatten the test image into a vector, and compute the Euclidean distance between the test image and all the other flattened images from the training dataset. The downside of this technique is that it consumes a large amount of time to compare all images if the dataset is large and is not very accurate. Face recognition methods can largely be classified into appearance-based and model based methods. Appearance based methods are applied to the whole face or particular areas of the face. On the other hand, model based methods are applied to shape and texture of the face. A model of the human face is constructed to detect the facial variations. Since appearance based methods do not use prior knowledge of faces, they fail when images of poor illumination or faces with different poses are tested. Conversely, model based approaches  make use of prior knowledge of faces and hence they are indifferent to any changes in the illumination and pose. However model based systems require a fair amount of time and are complex to implement. Appearance methods are further divided into linear and non linear methods. The most common among linear methods is the principal component analysis. An extension of principal component analysis to perform non linear form of face recognition is kernel principal component analysis. Another widely preferred non linear approach is the neural networks method \cite{agrawal2015evaluation}.
 
-In 2014, Medina and Garcia \cite{Medina2014AMachines} surveyed mechanisms for migration in virtualized environments which are primarily classified into process migration, memory migration and suspend/resume migration. Multiple process migration mechanisms such as Zap\cite{Osman2002TheZap} and Autopod \cite{Potter2005AutoPod:Loss}  are discussed briefly in this paper.
+In the recent years, there has been some research into face recognition under partial occlusion.Blanz et al. introduced a face recognition method which recognises faces irrespective of the pose and light conditions \cite{blanz2003face}. In accordance with other model based approaches, they simulate a 3D image using graphics from single images. The model is then fitted to the images. Through this model, they account for the variations in pose and illumination. The model is trained from a set of 3D scans of the head. In this paper, they describe the design of the model and the algorithm for fitting it to the images. Finally they provide a framework for face recognition where the faces are represented by 3D shape and texture from the model. 
 
-Process migration technique for load balancing was discussed by Shah and Kapadia \cite{Shah2012LoadSystem} which focused on two algorithms namely, sender-initiated algorithm and the receiver-initiated algorithm. Sender initiated algorithm is based on non-preemptive migration and the receiver initiated algorithm is based on preemptive migration. The paper outlines both the algorithms and then concludes that process migration can be used for efficient load balancing
+The methods used to handle occlusion can be classified as feature, part and fractal based methods. In part based methods, facial recognition is done by dividing the image into multiple parts. Tan et al. presented a non-metric partial similarity measure to calculate the outstanding similarities between two images and discarding all the unimportant differences between them \cite{tan2006learning}. This will help  extract the intra-personal similarities thereby causing the effect created by occlusions and other variations to be reduced. Kim et al. use two-dimensional principal component analysis for face recognition of occluded images \cite{kim2007occlusion}. Here, a feature matrix is created and the occluded parts of an image are identified by classifying each row of the matrix. The process is divided into two stages- occlusion detection and partial matching. They use a combination of k-NN and 1-NN classifier and similarities between feature matrices on AR face database to develop the face recognition algorithm. Chen et al. suggested the use of kernel principal component analysis algorithm \cite{chen2016recognition}. The images were divided and a certain weight was assigned to each part. The features from each part were then extracted by KPCA to classify and recognise the image.
+
+In fractal based method for handling partial occlusions, the images are partitioned and each region is accessed by iterated function system. The ad hoc measurement of distance using a distance function removes all the unimportant data that is not required for recognition, thereby increasing the speed and accuracy of recognition \cite{abate20072d}.
+
+Feature based methods that are applied to tackle the issue of occlusion take into account the features of an individual like the edges around the eyes and mouth and disregard the other features. Turk et al propose a face recognition method using eigenfaces. Images are represented as a small set of 2D characteristics \cite{turk1991face}. The eigenvectors of the training dataset define the  feature space. Images are projected onto a feature space to derive unique characteristics. Faces are recognised by comparing the characteristics of the test dataset to the characteristics of the test dataset. The model provided the  capability of near-real-time face recognition. A. M. Martinez takes a probabilistic approach to solve occlusion problem by using an eigenspace representation \cite{martinez2000recognition}. Each image is divided into multiple regions and is analysed to recreate the training set and perform a matching with the images to recognise the face.
+
+Neural networks, is another widely preferred face recognition method because of its non linear approach. Convolutional Neural Networks based systems directly learn from the training dataset that is provided and adopt deep learning algorithms to recognise an image. Using an unaltered convolutional neural network on occluded images, a low level of accuracy will be obtained \cite{chandler2016mitigation}.However, training this network with occluded images improves the accuracy but is still not very efficient in prediction. This can be significantly improved by appropriate pre-processing and segmentation of the images. The flaw with this system is that excessive training will lead to the problem of overfit. Overfit is a situation where the system memorizes all the training data and when new test data with noise is presented, it will not be able to produce an accurate result.
+
+At present, most of the research has been done on face detection and recognition systems of perfectly aligned face images and relatively few studies for images with facial occlusion. Of all the methods that are proposed, most researchers use part based methods in which the image is segmented and then each individual region is analyzed. The most widely implemented face recognition under occlusion techniques are face recognition using kernel principal component analysis, k-nearest neighbours and convolutional neural networks. Each of these methods have been considered on different image datasets. To measure the accuracy of these methods, they should be verified against one dataset. Hence here, all these methods have been implemented on Labelled Faces in the Wild dataset. Furthermore, there is a need to verify the behaviour of these models and find the change in accuracy when regions of the face are occluded in the image.
 
 
-In 2005, Jason Duell \cite{Duell2005TheBLCR} devised the design and implementation of Berkley Lab's Linux Checkpoint/Restart which tackles a missing feature in linux clusters namely checkpoint/restore implementation at the kernel level. Commonly this system is referred to as BLCR and can be utilized as a standalone system for applications or parallel communication or a job scheduling system. 
 
 
-Pickartz et al \cite{Pickartz2016MigratingCRIU} enabled migration of Linux Containers (LXC) through the implementation of a libvirt driver. Checkpoint Restore In Userspace mechanism is leveraged for the lxctools driver to support migration. CRIU saves sets of files which contains the state of the process by forming checkpoints. Following which, CRIU accesses /proc file system to retrieve information such as process ID (PID), file descriptors threads and so on. The collection of the memory and credentials is also done. After the process of checkpointing, the process can continue executing or may be terminated. In restoration process, the CRIU with the assistance of timers, credentials, threads etc, rebuilds the process tree and reads the image files. After this, the memory is rebuilt and the execution of the process can continue. 
-
-In all the papers discussed above, the checkpoint restore functionality of process migration is widely adopted and discussed at the host-level. To tackle load balancing, migrating huge applications to microservices running on a container, process migration may be applied. In this paper, an hypothesis assuming that process migration can successfully be implemented on the container-level and can be automated. Thorough and experimental analyses at the container level in different scenarios is done and the findings are presented in a simplified way. 
 
 \section{Analysis of Process Migration in Containers}
 \label{sec:3 Analysis Process Migration} 
-This section analyses process migration, the various prerequisites required, the procedure followed, obstacles encountered and attempts employed to overcome them. 
+Method
+The following section describes a theoretical analysis of the methods followed to implement the three face recognition systems, i.e. principal component analysis, k nearest neighbour and convolutional neural networks:
 
-\subsection{CRIU in Action}
-\label{subsec:3.1 CRIU in action}
-The latest version of CRIU is 3.3 "Crystal Pelican". CRIU is a migration utility tool and is shown in a simple manner in \ref{fig 2: CRIU}. Using CRIU enables the user to migrate an executing application from the source system to the destination system. This is achieved by the following steps. On running the CRIU's checkpoint command the process running is frozen following which the image files are created. 
 
-Image files are referred to the files which contain the state of the process. These image files can be in one of the three formats, namely the google protocol buffer format (protobuf), images which consist of binary data and a third part format (raw images). All of these files commence with 2 32-bit magic cookies in which the first cookie describes the type of file it is and the second cookie is optional sub-type of the image, if any.  Additionally, the images can be of three types as well. The first type is called inventory file which describes the set only and does not have any sub-type magic associated with it. The second type is called Auxiliary file. This type of image is not an image but the criu utility tool produces an image in the protobuf format. The third type is a regular image file.  For this demo, the format of the image chosen is the google protocol buffer format and a regular image file. At this point there are two ways that the migration can take place.
 
-In the first method, the process which is frozen can be made to stop executing at the moment when it is checkpointed which can be a disadvantage as the execution is terminated until the process is rebuilt at the destination. The image files can be stored in two ways depending upon the need and the access that is required to be granted. If the process is meant to be shared among more than the source and the destination, the image files of the process has been created can be stored on the shared drive on the source machine. This grants access to more than one system at a time. If the process is supposed to be shared between only two systems, the checkpointed image files can be copied directly to the intended system. As mentioned in the before paragraph, the images are stored on google protocol buffer format, hereon referred to as protobuf. These files reside in the protobuf/ directory on the system. The files consist of multiple files. To name  a few - \emph{inventory}, which is an array file and contains an overview description of images and is named as inventory.proto. \emph{eventpoll} files which is also an array file which contains information on the process pertaining to the target file such as file descriptors, basic information and so on. \emph{core} files are single-entry files which, as the name indicates, contains data on the core process such as sigmask, name etc and also the dependent information such as registers, stacks and so on. In addition to these files there are many more files that are created which provides information on various necessary attributes such as netdev, utsns, mountpoints, tcp-stream etc. In this method, the source system terminates the execution of the process as the very moment that it has been checkpointed and the image files are created. They are then dumped into files on the destination system or a shared drive as need be. 
+ 
 
-In the second method, a slight change can make sure the disadvantage specified at the beginning of the description of the first method can be overcome. Using this way, whenever the process is checkpointed and image files are created, the executing process to be migrated is not terminated but continues to execute on the source system until the control is switched over to the destination system. 
+\subsection{Principal Component Analysis}
+\label{subsec:3.1 Principal Component Analysis}
+Principal component analysis is a computationally meticulous approach for simplification of data. It aims to convert a set of correlated data into an uncorrelated set called principal components\cite{turk1991face}.Data is split into training and test data using cross validation technique.as the number of features increase, the computation cost and complexity of the system increase. it could lead to the problem of overfitting. Instead of indiscriminate elimination of image pixels,  Principal Component Analysis is employed to perform dimensionality reduction which can reduce the data from a two dimension plane to a single dimension line. PCA attempts to represent the variance in the training data with a reduced number of dimensions.  the features are compressed and only the most useful feature combinations are returned. these constitute the eigenfaces. the data is then normalized, to make it less redundant. it is performed by rotating into the coordinate space of the principal components. Each dimension is then divided by the standard deviation in that direction to get unit variance and then rotated back. 
 
-During the migration of processes, the memory is mapped and dumped in mm.img images but these files have information only on the virtual memory areas. These dumps contains the information of individual pages and data on which address locations in the virtual memory should reside in. Dumps pertaining to memory are stored in two images, namely pagemap and pages. Pagemap, as the name indicates, contains mapping information of the data. Pages contain plain sets of full page data. The memory areas which are in use by the task, if any file is mapped to it and shared memory areas are determined using \verb|smap_files| and \verb|map_files| present inside the /proc directory which are associated using links. Vital flags reside in the pagemap file also under the \emph{/proc} directory. The indicator \emph{present} implies that the physical page and the ones that are not present are assumed not to be dumped yet. The pages from the task's system are converted into a pipe using Ptrace with vmsplice. 
+Support Vector Machines and GridSearchCV have been used to train the model. Support Vector Machines determine a decision boundary such that the distance between two classes of data is maximum. the classifier can easily recognize faces when the data is spread out instead of grouped together. Support Vector Machines are very efficient. however, to further optimize the results the parameters can be altered manually or can be automated using GridSearch module that does a parameter sweep to give the best results.
+The general steps to perform face recognition using PCA are:
 
-Rebuilding the process from the dump files that are created during the checkpoint is called restoring. Prior to explaining the restoration process, the concept of Copy-On-Write (COW) and shared memory are worth taking a look at. Until the tasks get COW-ed, there is a possibility that the pages shared between tasks might be a part of an anonymous private mapping. To tackle this, CRIU pre-restores those pages prior to forking the child processes. For the creation of shared memory area, the creator is first determined. Currently, the \emph{memfd} system call is used which accomplishes \emph{mmap-s} the region but also works for various userspaces due to which the creator creates the memory file descriptor (memfd) and all the other get one through \emph{fd} file in the \emph{/proc/pid} directory link which when compared to the \verb|map_files|, is not that strict. Restoration of memory is done in multiple ways.
+	1. Train the system using a certain image set.
+    
+    
+	2. Compute the covariance matrix of the training dataset
+    
+	3. Extract Eigenfaces using PCA
+	
+    4. Represent each image with respect to eigenfaces(as a vector of weights)
 
-Restoring memory can be done by opening all the mm.img image files and reading the mappings in it. By doing this, the shared memory partition or segment can be resolved and simultaneously check if any special-care mapped files are present. This is the most commonly utilized method. Additionally there are a few more, namely - open file mapping, restore mappings in their places, open shared mappings etc.
+5. To test the system, calculate the weight of test image. Compare it with the weights already known to the system
 
-Memory mapping is followed by CRIU's restorer context which happens to be the final stage of the rebuilding process. It is devoid of libraries and is Position Independent Executable(PIE) compiled and can function on limited amount of memory. In this stage, CRIU restores memory, timers, credentials and threads adhering to the destination systems environment.
+6. Recognition is done by matching the weights of the test image to the closest weights that are known to the system. 
+
+This model is then tested on an unknown dataset to measure accuracy of recognition. in the next step, data is randomly occluded and used as test dataset. precision, recall, f1-score and support have been calculated along with confusion matrix as a measure of accuracy of prediction. 
+
+\subsection{k Nearest Neighbour}
+\label{subsec:3.2 k Nearest Neighbour}
+k Nearest Neighbour method is preferred over other classifiers due its simplicity and robustness in multi model classification. It also requires lesser execution time and offers better accuracy. It is efficient in classifying test data based on closest training data in the feature space. An image is classified by a taking a majority vote of the neighbouring classes. The euclidean distance between a given test and each training image features is computed. 
+
+\begin{figure}[h!]
+%\vspace{-0.2cm}
+ \centering
+ \includegraphics[width = 8cm]{euclidean_distance11.JPG}
+ \caption{ Euclidean Distance (Source:\cite{weinberger2006distance})}
+ \label{fig 1: Euclidean Distance}
+\end{figure}
+
+Where n is the number of variables, $x_i$ and $y_i$ are the values of the ith variable at points p and q respectively. 
+
+This forms a distance matrix whose summation value is calculated and sorted in an increasing order. According to the value of k that is specified, the classes are selected and the majority class value determines the classification of the test image \cite{kaur2012k}. KNN algorithm classifies the test images by computing the most common class from the K closest training data points. Each training data point from the k closest classes casts a vote and the data points is classified as the class with most votes.
+
+\subsection{CNN}
+\label{subsec:3.3 CNN}
+Cnn are made of multiple layers of neurons which can be assigned weights and biases. Input is given to each neuron which performs a dot product. neural networks are preferred for face recognition methods because of their non linear approach. They are similar to ordinary neural networks in that, they have a loss function on the final layer and use the same mechanism to train the system. Image pixels are given as an input to the network and class scores are obtained as an output. 
+
+\begin{figure}[h!]
+%\vspace{-0.2cm}
+ \centering
+ \includegraphics[width = 9cm]{cnn_arch.JPG}
+ \caption{ Convolutional Neural Network (Source:\cite{cheung2012convolutional})}
+ \label{fig 1: Convolutional Neural Network}
+\end{figure}
+
+Each layer of neurons take in a multidimensional array of numbers, performs dot product of the weights and corresponding area of the input. The output is another multidimensional array of numbers which serves as an input to the next layer. Every layer of convolutional neural network converts one activation function to another through a differentiable function. As shown in the image, there are three layers used to build a convolutional neural network: Convolution (CONV) Layer, Pooling Layer, and Fully-Connected Layer.
+
+Input layer holds the raw image. The convolution layer computes the dot product. RELU layer is responsible for the activation function. Downsampling operation is performed by the POOL layer. Fully connected layer is responsible for providing the output with the class scores. Keeping with its name, the neurons in this layer are connected to all neurons in the previous layer. The convolution operation is conducted as follows:
+
+\begin{figure}[h!]
+%\vspace{-0.2cm}
+ \centering
+ \includegraphics[width = 9cm]{cnn_formula.JPG}
+ \caption{ Convolutional neural network cost function(Source:\cite{lee2009convolutional})}
+ \label{fig 1: Convolutional Neural Network cost function}
+\end{figure}
+
+where $h^{(l)}_j$ denotes the j-th feature map in the l-th layer, and nl is the number of feature maps in the l-th layer. The network is parameterized by weights $w_{ij}^{(l)}$ and biases $b_j^{(l)}$to be learned\cite{lee2009convolutional}.
+
+Additionally, convolutional layer and fully connected layers perform computations not just using the activation functions from the previous layers but also using their individual weights and biases. But the other layers namely, RELU and POOL, execute a  fixed function. The parameters in the convolutional/fully connected layers are trained using the principle of gradient descent. It is a guided search method. To monitor the error in a model, a separate cost function is used. The aim is to minimise this function to achieve lowest error possible or the maximum accuracy. Gradient descent is a repetitive process of optimization by tweaking certain parameters to find the minimum of a function, i.e. to take small steps that are proportional to the negative of the gradient of the cost at every point. Gradient descent is employed to ensure that the class scores that are output from the network are consistent with the classes in the training image set. Using this underlying principle, CNN transforms raw image pixels to the final class scores. 
 
 \subsection{Experimental Setup}
 \label{subsec: 3b. Experimental Setup}
 
+
+This section describes the set of experiments that have been performed to find and analyze the accuracies of the above mentioned face recognition algorithms. First, the performance of Principal Component Analysis, k Nearest Neighbour and Convolutional Neural Networks has been evaluated by implementing these algorithms on the LFW dataset. Subsequently, these algorithms have been evaluate by applying on randomly occluded images from the dataset to demonstrate their effectiveness.
+
+To implement face recognition using PCA, the LFW image data set is loaded as numpy arrays. The data is split into training data and test data using stratified k-fold cross validation. Training data is used to train the system while the test set is used to evaluate the performance of the system. Stratification ensures that the test data covers all classes of the training data. In other words, stratification ensures that the test data is a good representation of the training data. It offers a better split in terms of bias and variance than simple cross-validation. PCA function is used to reduce the number of features and extract the eigenfaces. The most significant eigenfaces have been plotted. SVM have been used for the classification of the images. SVM marks each data point in an n-dimensional spaces according to the number of features that are selected. SVM gives an optimal hyperplane with maximum margin between classes. Data is categorized based on this hyperplane.
+
 \begin{figure}[h!]
-\centering
- \includegraphics[width = 9.2cm]{Experiment.pdf}
- \caption{Experimental Setup Overview}
- \label{fig 1: CRIU}
+%\vspace{-0.2cm}
+ \centering
+ \includegraphics[width = 9cm]{PCA_pred.JPG}
+ \caption{ Principal Component Analysis Prediction}
+ \label{fig 7: Principal Component Analysis Prediction}
 \end{figure}
 
-The host system used in this setup is running on Ubuntu 14.04.5 LTS kernel and so are the LXC containers. The Ubuntu 16.04.3 LTS kernel can also be used. The LXC containers run on the same kernel version as that of the host machine which in turn gives them an advantage of having almost zero overhead and additionally being very fast as well. The container imposes very little overhead when compared to a virtual machine \cite{Ann2015PerformanceMachines} because the operating system's interface is used to execute programs in virtual partitions unlike having to be executed on an intermediate virtual machine. Checkpoint/Restore In Userspace, CRIU, is installed on the host and the containers as well running on version 3.3 "Crystal Pelican".
+Even though the system is not very complex, it produces efficient results. The algorithm accurately recognises a large number of images from the data. To quantify the efficiency of the algorithm, various measures from sklearn.metrics have been used. The classification report gives the precision, recall, f1-score and support for the classification. 
+
+KNN goes through the entire data for every test datapoint to find the k nearest or most similar instances to the training data. Euclidean distance measure is most commonly used for this algorithm. The other widely used measures are Manhattan distance, Jaccard distance, Minkowski distance etc
+
+CNN: FaceNet is a simple network that maps the image data to an Euclidean space. This uses the concept of distance and face similarity i.e. the images of same person with small distances between them will be grouped together. Further, there will be a significant difference between images of different people. Subsequently, the recognition task can be completed using knn algorithm. The system uses a triplet image set for training. The triplet is chosen such that two of the images match and one does not. Therefore, the images that match will have smaller distance and can be grouped together while the images that do not match have a larger distance between them. (cite https://arxiv.org/pdf/1503.03832.pdf) The model represents each the faces in the training set into a 128 dimensional vector which are labelled and used for recognition of faces. When a new test image is entered into the system, it goes through the network to form a 128 dimensional vector. This vector is then compared with the training set. The lowest distance between the test image and training set is used to recognise the face in the image. (cite: https://github.com/davidsandberg/facenet)
+After the implementation of these algorithms, the next step was to run each of the algorithms on a randomly occluded test dataset to calculate the accuracy of face recognition. 
 
 \begin{table}[htbp]
 \caption{Source/Destination Machine Combination}
@@ -147,169 +225,20 @@ Container & Host \\
 \end{center}
 \end{table}
 
-Pre-requisites for the environment setup include:
-\begin{itemize}
-    \item \textbf{gcc, make, build-essential}: these libraries are needed as CRIU is written in C-language.
-    \item \textbf{libprotobuf-dev libprotobuf-c0-dev protobuf-c-compiler protobuf-compiler python-protobuf}: these libraries are needed as CRIU uses google protocol buffers to read/write images.
-    \item \textbf{libnl-3-dev libnet-dev}: network driver libraries.
-\end{itemize}
-
-To check if the installation of all the softwares were functioning, a script was executed which initiated a process in one of the systems, for the sake of simplicity lets refer to this as the source system and the system to which it is supposed to be migrated to as the destination system.
-
-Lets consider the first scenario according to the table shown above. The source and the destination systems are both host machines and are running on Ubuntu 14.04 64-bit as as shown in Table \ref{table 2}. 
-
-\begin{table}[htbp]
-\caption{Scenario 1: Host-Host}
-\begin{center}
-\begin{tabular}{|c|c|}
-\hline
-\textbf{Source}&\textbf{Destination} \\
-\cline{1-2} 
-\hline
-Host & Host  \\
-Ubuntu 14.04 amd64 & Ubuntu 14.04 amd64 \\
-\hline
-\end{tabular}
-\label{table 2}
-\end{center}
-\end{table}
-
-
-In this scenario, a test script is created that executes a process in the source host system. Prior to this, CRIU utility tool is installed and configured according to the pre-requisites mentioned above. A check on the CRIU should indicate \emph{Looks good}, this is performed using the following command: \\
-
-\noindent\verb|$sudo criu check| \\
-
-The running process is dumped as image files [.img] with the following command: \\
-
-\noindent\verb|$sudo criu dump -t $PID --images-dir| 
-\verb|/path/to/folder --shell-job| \\
-
-\noindent\verb|$PID| refers to the process ID of the running process, \verb|--images-dir| option can be used to specify where the image files should be dumped. \verb|--shell-job| option is required to dump processes running through a terminal. Similarly if a process has open TCP connections \verb|--tcp-established| option should be specified. Image files generated can be copied to the destination or the image dump folder can be made a shared folder between source and destination systems. The image files can be copied to the destination system using the following command:  \\
-
-\noindent\verb|$sudo scp -r /path/to/source/folder|
-\verb|user@destination_address:|
-\verb|/path/to/destination/folder| \\
-
-The copied images in the destination system can be used to restored as a process using the following CRIU command:\\
-
-\noindent\verb|$sudo criu restore --images-dir| 
-\verb|/path/to/folder --shell-job| \\
-
-\noindent Since the process is restored in a different host, no need to specify \verb|$PID| in the restore command. The process was successfully migrated in this scenario. \\
-
-In scenario 2, the process is attempted to migrate from Ubuntu 14.04 64-bit host to Linux Container LXC Ubuntu 14.04 64-bit as shown in Table \ref{table 3}. The step is to install the LXC on the host system. This is performed using the following commands:
-
-\begin{verbatim}
-$sudo add-apt-repository ppa:ubuntu-lxc
-/daily
-$sudo apt-get update
-$sudo apt-get install lxc
-\end{verbatim}
-
-\begin{table}[htbp]
-\caption{Scenario 2: Host-Container}
-\begin{center}
-\begin{tabular}{|c|c|}
-\hline
-\textbf{Source}&\textbf{Destination} \\
-\cline{1-2} 
-\hline
-Host & Container  \\
-Ubuntu 14.04 amd64 & LXC Ubuntu 14.04 amd64 \\
-\hline
-\end{tabular}
-\label{table 3}
-\end{center}
-\end{table}
-
-In this scenario, a test script is created that executes a process in the source host system. The process is dumped and the image files are copied to the destination container. The commands to dump the process and copy the image files are discussed in the previous scenario. 
-
-CRIU is installed on the destination system, the CRIU installation failed as the container system could not access the procfs filesystem as this is mounted with read-only access. As a solution, the configuration of the LXC container was changed to re-mount the procfs with read-write access. The configuration file of the container is found at \verb|\var\lib\lxc\container_name\config|. The following two lines were added to the \verb|config| file:
-
-\begin{verbatim}
-lxc.mount.auto = proc sys cgroup
-
-lxc.mount.auto = proc:rw sys:rw 
-cgroup-full:rw
-\end{verbatim}
-
-\noindent CRIU restore resulted in an error as follows: 
-
-\begin{verbatim}
-Can't open -1/sys/kernel/ns_last_pid
-on procfs: Permission denied
-\end{verbatim} 
-
-\noindent Though the container has read-write access to \verb|procfs|; \verb|criu check| returns \emph{Looks good.}, the system fails to access the proc file system. After thorough research on CRIU issues, it is found out processes cannot be rebuilt on containers and this is unresolved flagged issue in LXC development. \\
-
-In scenario 3, process migration is attempted from container LXC Ubuntu 14.04 64-bit (source) to host Ubuntu 14.04 64-bit (destination). A demo process is created by running a small script which displays current time every second to the terminal. 
-
-\begin{table}[htbp]
-\caption{Scenario 3: Container-Host}
-\begin{center}
-\begin{tabular}{|c|c|}
-\hline
-\textbf{Source}&\textbf{Destination} \\
-\cline{1-2} 
-\hline
-Container & Host  \\
-LXC Ubuntu 14.04 amd64 & Ubuntu 14.04 amd64 \\
-\hline
-\end{tabular}
-\label{table 4}
-\end{center}
-\end{table}
-
-\noindent Similar to the previous scenarios, LXC is created on the host system and CRIU is installed on both host and container. When attempted to dump the process in the container, the following error was encountered:
-
-\begin{verbatim}
-Error (compel/src/lib/ptrace.c:27): 
-suspending seccomp failed: 
-Operation not permitted
-\end{verbatim}
-
-\noindent \emph{seccomp} is kernel security mechanism in Linux to filter system calls. CRIU to run in container requires seccomp to be suspended. Hence, fails to dump the process. A workaround to overcome this issue is yet to be developed in LXC. 
-
-From scenario 2 and 3, it is observed that a process cannot be dumped or restored inside a container, it is safe to conclude that scenario 4 where a process is migrated from one container to another would not yield different results. 
 
 \section{Conclusion and Future Work}
 \label{sec: 4.Conclusion and Future Work}
 
-This paper is based on a hypothesis that process migration is possible at the container-level and the automation of it which will in turn decrease overhead and time consumption. Findings which are discussed in Section \ref{subsec: 3b. Experimental Setup} can lead to the conclusion which is simplified using table \ref{table 5} . 
+In this work, we have presented a comparative analysis of three widely used face recognition methods: Principal Component Analysis, k-Nearest Neighbour and Convolutional Neural Networks. Among these, convolutional neural networks have shown to be most accurate. Despite their high accuracy rates, CNNs have certain drawbacks. The time required to train these networks increases with the amount of data and number of layers. It also requires high computation power, processing speed and memory. As shown, each algorithm has its own benefits and drawbacks. Hence it is quite impossible to meaningfully rank these methods as there are a number of factors need to be considered. In the end it depends on the application that the appropriate algorithm can be used. There has been a lot of research on face recognition systems under controlled conditions. However there has not been enough research on face recognition under uncontrolled conditions.
 
-
-\begin{table}[htbp]
-\caption{Source/Destination Process Migration Result}
-\begin{center}
-\begin{tabular}{|c|c|c|}
-\hline
-\textbf{Source}&\textbf{Destination}&\textbf{Process Migration} \\
-\cline{1-2} 
-\hline
-Host & Host & $\checkmark$ \\
-\hline
-Container & Container & $\times$ \\
-\hline
-Host & Container & $\times$ \\
-\hline
-Container & Host & $\times$ \\
-\hline
-\end{tabular}
-\label{table 5}
-\end{center}
-\end{table}
-
-As shown above, the only scenario in which a process executing in a source system can be migrated and rebuilt successfully is when it is being migrated from a source host system to a destination host system. All the other tried scenarios which included host-to-container, container-to-host and container-to-container have failed to implement process migration. Hence, process migration is unsupported at the container-level. From these observations, it is safe to deduce that the hypothesis can be disproved. 
-
-Future work includes elevating privileges in container to access system files and proc file system as restoring processes from image files require process ID creation, access to I-nodes and system memory, which critically depend on read-write access to proc file system. To dump a process, CRIU has to have access to  system calls
-
+For future work, the level and area of occlusion of the images can be varied to find a threshold of occlusion that can be applied to images beyond which the above described face recognition methods resort to only a chance level accuracy. In such cases, new algorithms need to be developed which can easily identify occluded images. Most of the work deals with face recognition using two dimensional images. The accuracy of prediction can be enhanced by using three dimensional face recognition systems. \cite{mileo2008wireless} 
 
 
 \section*{Acknowledgment}
-This work was supported by Dublin City University (DCU), Dublin, Ireland and Dr.Paul Clarke, School of Computing, DCU.
+This work was supported by Dublin City University (DCU), Dublin, Ireland and Dr.Alessandra Mileo, School of Computing, DCU.
 
 
 \bibliographystyle{IEEEtran}
-\bibliography{Mendeley.bib}
+\bibliography{refs.bib}
 
 \end{document}
