@@ -31,7 +31,7 @@ Dublin, Ireland \\
 % ^.
 
 \begin{abstract}
-The aim of face recognition is to give a system the capability to detect and identify human faces. Face recognition systems find applications in access and security, criminal identification, target advertising, computer vision and many other fields. It is easier to build a face recognition system when an image contains unobstructed view if the face. However, the probability of finding an image with a partial or occluded face is very high which hinders the performance of the system. This project aims to make a comparative study of existing methods of face recognition. Secondly, the project aims to study the conduct of these algorithms when they are applied on occluded images by randomly cropping out a certain area of an image. Based on this study, it can be verified if the existing methods can be utilized for face recognition of occluded images without having to compromise on the accuracy of the models. This project also confirms the higher degree of precision that can be achieved with the neural networks.
+The aim of a face recognition algorithm is to give a system the capability to detect and identify human faces. Face recognition systems find applications in access and security, criminal identification, target advertising, computer vision and many other fields. It is easier to build a face recognition system when an image contains unobstructed view if the face. However, the probability of finding an image with a partial or occluded face is very high which hinders the performance of the system. This project aims to make a comparative study of existing methods of face recognition. Secondly, the project aims to study the performance of these algorithms when they are applied to occluded images by randomly cropping out a certain area of an image. Based on this study, it can be verified if the existing methods can be utilized for face recognition of occluded images without having to compromise on the accuracy of the models. This project also confirms the higher degree of precision that can be achieved with neural networks.
 
 \end{abstract}
 
@@ -42,57 +42,47 @@ Face Recognition; Occlusion; Principal Component Analysis; k Nearest Neighbour; 
 
 \section{Introduction}
 \label{sec: 1.introduction}
-Unlike face detection which deals with identifying the presence of a face in an image, face recognition deals with the feature extraction and recognition of the face in an image. Facial recognition techniques have proven beneficial predominantly in the field of security. Face recognition is the preferred choice over other biometrics as it is a non intrusive and robust method of identification. As a whole, face recognition can be seen as a classification task with inputs as images and the outputs as identity of people. 
+Unlike face detection which deals with identifying the presence of a face in an image, face recognition deals with the feature extraction and recognition of the face in an image. Facial recognition techniques have proven beneficial predominantly in the field of security. Face recognition is the preferred choice over other biometrics like iris scans or fingerprints as it is a non intrusive and robust method of identification. As a whole, face recognition can be seen as a classification task with inputs as images and the outputs as identity of a person. 
 
 \begin{figure}[h!]
 %\vspace{-0.2cm}
-\MK{reference the picture somewhere in the text, use \ref{fig 1: face recognition architecture} tag like this}
+
  \centering
  \includegraphics[width = 8cm]{Face_Recognition_Architecture.JPG}
  \caption{ Face Recognition Architecture (Source:\cite{makwana_makwana_2016})}
  \label{fig 1: face recognition architecture}
 \end{figure}
 
-Face recognition is an extensively researched subject\cite{zhao2003face} \cite{abate20072d}.  Most of the face recognition systems today, perform under unobstructed conditions\cite{phillips2005overview}.In this systems, the faces in the images are directly pointed at the camera. However, in a real world scenario, images seldom contain faces which are unobstructed or  faces that are pointed directly at the camera. Occlusion is defined as the blockage due to an external factor. Occlusion in an image can be due to a number of factors like lighting conditions, glasses, scarves, different poses or even certain facial expressions. Designing a face recognition system that gives accurate results even with occlusion is a challenging task due to the missing facial cues from occluded areas of the face.
+Face recognition is an extensively researched subject\cite{zhao2003face} \cite{abate20072d}. Figure \ref{fig 1: face recognition architecture} shows a basic face recognition architecture according to which, every new test image, after undergoing pre-processing, is compared with the training data to recognise the person in the image. Most of the face recognition systems today, perform under unobstructed conditions\cite{phillips2005overview}. In these systems, the faces in the images are directly pointed at the camera. However, in a real world scenario, images seldom contain faces which are unobstructed or  faces that are pointed directly at the camera. Occlusion is defined as the blockage due to an external factor. Occlusion in an image can be due to a number of factors like lighting conditions, glasses, scarves, different poses or even certain facial expressions \cite{wright2009robust}. Designing a face recognition system that gives accurate results for images with or without occlusion is a challenging task due to the missing facial cues from occluded areas of the face.
 
 \subsection{Principal Component Analysis}
 \label{subsec: 1a.Principal Component Analysis}
-Principal Component Analysis: By definition, principal component analysis is a mathematical procedure that uses orthogonal transformation to convert a set of values of possibly correlated M face images into a set of K uncorrelated variables called the Eigenfaces.
-\cite{turk1991face}.Face recognition by PCA is achieved by projecting the test image in the eigenface subspace. Then the distance between the position of test image in eigenspace is compared with the known dataset or the training dataset. Based on this comparison, the person is recognised. PCA gives excellent results in a constrained environment. It is a preferred approach as it is simple, fast and has a high learning capability.
+By definition, principal component analysis is a mathematical procedure that uses orthogonal transformation to convert a set of values of possibly correlated M face images into a set of K uncorrelated variables called the Eigenfaces
+\cite{turk1991face}. Figure \ref{fig 1 : eigenface} shows the few of the most significant Eigenfaces from the LFW dataset. Face recognition by PCA is achieved by projecting the test image in the eigenface subspace. Then the distance between the position of test image in eigenspace is compared with the known dataset or the training dataset. Based on this comparison, the person is recognised. PCA gives excellent results in a constrained environment. here, images under constrained environment indicates that the images are not occluded by any factor. It is a preferred approach as it is simple, fast and has a high learning capability.
 
 \begin{figure}[h!]
 %\vspace{-0.2cm}
  \centering
  \includegraphics[width = 9cm]{eigenface.JPG}
  \caption{ Most significant Eigenfaces}
- \label{fig 1: eigenface}
+ \label{fig 1 : eigenface}
 \end{figure}
 	
 
 \subsection{k-Nearest Neighbors } 
 \label{subsec: 1b.Knn}
-k-nearest neighbors is a robust and efficient method used for classification and regression. In this algorithm, the training image data set is separated into multiple classes to predict the classification of a new test image. Knn is one the besttt face recognition methods as it is a non parametric algorithm. This fact is very helpfulll as the data typically does not obey the theoretical assumptions. hence prior knowledge of the data is not required for prediction. the bsis of knn algorithm is feature-similarity  i.e. the closeness of the features of any test image to the training images determines the classification of that test image; where Eucledian distance measure is used to find the the distance in the image space \cite{wang2005euclidean}. The distance between test image features and training image feature is calculated and a distance matrix is formed. The distance matrix is summed up and arranged in an increasing order. Based on the value of k, the first k elements are selected and the test image is classified according to the majority class value \cite{zhang2007ml}.
+k-nearest neighbors is a robust and efficient method used for classification and regression. In this algorithm, the training image data set is separated into multiple classes to predict the classification of a new test image. k-nearest neighbors is one the best face recognition methods as it is a non parametric algorithm. This fact is very helpful as the data typically does not obey the theoretical assumptions. hence prior knowledge of the data is not required for prediction. The basis of knn algorithm is feature-similarity  i.e. the closeness of the features of any test image to the training images determines the classification of that test image; where Eucledian distance measure is used to find the the distance in the image space \cite{wang2005euclidean}. The distance between test image features and training image feature is calculated and a distance matrix is formed. The distance matrix is summed up and arranged in an increasing order. Based on the value of k, the first k elements are selected and the test image is classified according to the majority class value \cite{zhang2007ml}.
 
 \subsection{CNN}
 \label{subsec: 1d.CNN}
 Neural networks, is another widely preferred face recognition method because of its non linear approach. Convolutional Neural Networks based systems directly learn from the training dataset that is provided and adopt deep learning algorithms to recognise an image. The accuracy of these systems can be significantly improved by appropriate pre-processing and segmentation of the images and by increasing the number of hidden layers \cite{dean2012large}.
-There are many libraries available to implement convolutional neural networks\cite{2016arXiv160502688short}\cite{Jia:2014:CCA:2647868.2654889}\cite{tensorflow2015-whitepaper}. TensorFlow is an open source library for machine learning developed by Google and is based on deep learning DistBelief framework. A convolutional neural network based on TensorFlow is highly robust and has a high accuracy rate even when the faces in the images are occluded.  It offers high flexibility and is relatively simple to use\cite{tensorflow2015-whitepaper}. An advantage of using convolutional neural networks is that some of the pre-processing steps can be skipped \cite{oliveira2017irish}. Keras is an open source library which runs on top of TensorFlow. Keras makes it easy to build and run convolutional neural networks\cite{chollet2015keras}. 
+There are many libraries available to implement convolutional neural networks\cite{2016arXiv160502688short}\cite{Jia:2014:CCA:2647868.2654889}\cite{tensorflow2015-whitepaper}. TensorFlow \footnote{https://www.tensorflow.org/tutorials} is an open source library for machine learning developed by Google and is based on deep learning DistBelief framework. A convolutional neural network based on TensorFlow is highly robust and has a high accuracy rate even when the faces in the images are occluded.  It offers high flexibility and is relatively simple to use\cite{tensorflow2015-whitepaper}. An advantage of using convolutional neural networks is that some of the pre-processing steps can be skipped \cite{oliveira2017irish}. Keras \footnote{https://keras.io/} is an open source library which runs on top of TensorFlow. Keras makes it easy to build and run convolutional neural networks\cite{chollet2015keras}. 
 
 There has been a lot of research on face recognition systems under unoccluded image conditions. However there has not been enough research on face recognition under occlusion. In this project the methods that have been mentioned above are applied to occluded images. These methods have been chosen as they are state-of-the-art, robust and widely used in the industry. The goal of PCA is to retain only those features that convey the most information\cite{turk1991face}. k Nearest Neighbor algorithm, although is simple in implementation, provides reasonably accurate results\cite{zhang2007ml}.Convolutional neural networks are used for their superior performance and high accuracy\cite{lawrence1997face}.
 
-\subsection{Data} 
-\label{subsec: 1c.Data}
-The dataset used for this project is the Labeled Faces in the Wild dataset, a collection of over 13,000 images of celebrities from the internet. Each face has been labelled and stored under a folder with the name of the person. However, not all people from the dataset have the same number of images. Using the dataset as is, will not yield expected results as any network will not be able to learn and identify a person based on just one image. In order to avoid class imbalance and for the system to train satisfactorily, only few people with most number of images have been selected for this project.(cite: http://vis-www.cs.umass.edu/lfw/). Occluded faces are more complicated to recognise than unoccluded ones. To get an occluded image dataset, the images from the training dataset have been randomly occludedddd. The human brain excels at recognising faces that could be significantly occluded. However most face recognising systems reduce to a chance level accuracy while identifying occluded images
 
-\begin{figure}[h!]
-%\vspace{-0.2cm}
- \centering
- \includegraphics[width = 9cm]{dataset.JPG}
-  \caption{ Images from Labeled Faces in the Wild(Source:\cite{LFWTech})}
- \label{fig 1: dataset}
-\end{figure}
 
-This paper is divided into 4 sections. Section \ref{sec: 2.Background} provides a brief literature review on face recognition methods. \ref{sec:3 Methodology} describes the methodology followed to implement the algorithms. \ref{sec:4 Experimental Setup} gives an overview of the experimental setup to run face recognition algorithms. \ref{sec: 5. Results and Analysis} provides a description of the results achieved. Section \ref{sec: 6.Conclusion and Future Work} provides conclusion and future work based on the experiments performed] 
+This paper is divided into 4 sections. Section \ref{sec: 2.Background} provides a brief literature review on face recognition methods. \ref{sec:3 Methodology} describes the methodology followed to implement the algorithms. \ref{sec:4 Experimental Setup} gives an overview of the experimental setup to run face recognition algorithms. \ref{sec: 5. Results and Analysis} provides a description of the results achieved. Section \ref{sec: 6.Conclusion and Future Work} provides conclusion and future work based on the experiments performed.
 
 \section{Background}
 \label{sec: 2.Background}
@@ -121,8 +111,7 @@ At present, most of the research has been done on face detection and recognition
 
 \section{Methodology}
 \label{sec:3 Methodology} 
-Method
-The following section describes a theoretical analysis of the methods followed to implement the three face recognition systems, i.e. principal component analysis, k nearest neighbour and convolutional neural networks:
+The following section describes a theoretical analysis of the methods followed to implement the three face recognition systems, i.e. principal component analysis, k nearest neighbour and convolutional neural networks.
 
 
 
@@ -158,24 +147,24 @@ k Nearest Neighbour method is preferred over other classifiers due its simplicit
 %\vspace{-0.2cm}
  \centering
  \includegraphics[width = 8cm]{euclidean_distance11.JPG}
- \caption{ Euclidean Distance (Source:\cite{weinberger2006distance})}
- \label{fig 1: Euclidean Distance}
+ \caption{Euclidean Distance Computation (Source:\cite{weinberger2006distance})}
+ \label{fig 4 : Euclidean Distance}
 \end{figure}
 
 Where n is the number of variables, $x_i$ and $y_i$ are the values of the ith variable at points p and q respectively. 
 
 This forms a distance matrix whose summation value is calculated and sorted in an increasing order. According to the value of k that is specified, the classes are selected and the majority class value determines the classification of the test image \cite{kaur2012k}. KNN algorithm classifies the test images by computing the most common class from the K closest training data points. Each training data point from the k closest classes casts a vote and the data points is classified as the class with most votes.
 
-\subsection{CNN}
-\label{subsec:3.3 CNN}
-Cnn are made of multiple layers of neurons which can be assigned weights and biases. Input is given to each neuron which performs a dot product. neural networks are preferred for face recognition methods because of their non linear approach. They are similar to ordinary neural networks in that, they have a loss function on the final layer and use the same mechanism to train the system. Image pixels are given as an input to the network and class scores are obtained as an output. 
+\subsection{Convolutional Neural Networks}
+\label{subsec:3.3 Convolutional Neural Networks}
+Convolutional neural networks are made of multiple layers of neurons which can be assigned weights and biases. Input is given to each neuron which performs a dot product. neural networks are preferred for face recognition methods because of their non linear approach. They are similar to ordinary neural networks in that, they have a loss function on the final layer and use the same mechanism to train the system. Image pixels are given as an input to the network and class scores are obtained as an output. 
 
 \begin{figure}[h!]
 %\vspace{-0.2cm}
  \centering
  \includegraphics[width = 9cm]{cnn_arch.JPG}
  \caption{ Convolutional Neural Network (Source:\cite{cheung2012convolutional})}
- \label{fig 1: Convolutional Neural Network}
+ \label{fig 5: Convolutional Neural Network}
 \end{figure}
 
 Each layer of neurons take in a multidimensional array of numbers, performs dot product of the weights and corresponding area of the input. The output is another multidimensional array of numbers which serves as an input to the next layer. Every layer of convolutional neural network converts one activation function to another through a differentiable function. As shown in the image, there are three layers used to build a convolutional neural network: Convolution (CONV) Layer, Pooling Layer, and Fully-Connected Layer.
@@ -187,7 +176,7 @@ Input layer holds the raw image. The convolution layer computes the dot product.
  \centering
  \includegraphics[width = 9cm]{cnn_formula.JPG}
  \caption{ Convolutional neural network cost function(Source:\cite{lee2009convolutional})}
- \label{fig 1: Convolutional Neural Network cost function}
+ \label{fig 6: Convolutional Neural Network cost function}
 \end{figure}
 
 where $h^{(l)}_j$ denotes the j-th feature map in the l-th layer, and nl is the number of feature maps in the l-th layer. The network is parameterized by weights $w_{ij}^{(l)}$ and biases $b_j^{(l)}$to be learned\cite{lee2009convolutional}.
@@ -199,6 +188,18 @@ Additionally, convolutional layer and fully connected layers perform computation
 
 
 This section describes the set of experiments that have been performed to find and analyze the accuracies of the above mentioned face recognition algorithms. First, the performance of Principal Component Analysis, k Nearest Neighbour and Convolutional Neural Networks has been evaluated by implementing these algorithms on the LFW dataset. Subsequently, these algorithms have been evaluate by applying on randomly occluded images from the dataset to demonstrate their effectiveness.
+
+\subsection{Data} 
+\label{subsec: 4a. Data}
+The dataset used for this project is the Labeled Faces in the Wild dataset, a collection of over 13,000 images of celebrities from the internet. Each face has been labelled and stored under a folder with the name of the person. However, not all people from the dataset have the same number of images. Using the dataset as is, will not yield expected results as any network will not be able to learn and identify a person based on just one image. In order to avoid class imbalance and for the system to train satisfactorily, only few people with most number of images have been selected for this project \cite{LFWTech}. Occluded faces are more complicated to recognise than unoccluded ones. To get an occluded image dataset, the images from the training dataset have been randomly cropped out. The human brain excels at recognising faces that could be significantly occluded. However most face recognising systems reduce to a chance level accuracy while identifying occluded images.
+
+\begin{figure}[h!]
+%\vspace{-0.2cm}
+ \centering
+ \includegraphics[width = 9cm]{dataset.JPG}
+  \caption{ Images from Labeled Faces in the Wild(Source:\cite{LFWTech})}
+ \label{fig : dataset}
+\end{figure}
 
 To implement face recognition using PCA, the LFW image data set is loaded as numpy arrays. The data is split into training data and test data using stratified k-fold cross validation. Training data is used to train the system while the test set is used to evaluate the performance of the system. Stratification ensures that the test data covers all classes of the training data. In other words, stratification ensures that the test data is a good representation of the training data. It offers a better split in terms of bias and variance than simple cross-validation. PCA function is used to reduce the number of features and extract the eigenfaces. The most significant eigenfaces have been plotted. SVM have been used for the classification of the images. SVM marks each data point in an n-dimensional spaces according to the number of features that are selected. SVM gives an optimal hyperplane with maximum margin between classes. Data is categorized based on this hyperplane.
 
@@ -214,45 +215,50 @@ Even though the system is not very complex, it produces efficient results. The a
 
 k-nearest neighbour algorithm goes through the entire data for every test datapoint to find the k nearest or most similar instances to the training data. Euclidean distance measure is most commonly used for this algorithm. The other widely used measures are Manhattan distance, Jaccard distance, Minkowski distance etc. scikit-learn library and functions have been used to implement k-nearest neighbour algorithm. The underlying data structure to find the nearest neighbours using Euclidean distance BallTree. 
 
-CNN: FaceNet is a simple network that maps the image data to an Euclidean space. This uses the concept of distance and face similarity i.e. the images of same person with small distances between them will be grouped together. Further, there will be a significant difference between images of different people. Subsequently, the recognition task can be completed using knn algorithm. The system uses a triplet image set for training. The triplet is chosen such that two of the images match and one does not. Therefore, the images that match will have smaller distance and can be grouped together while the images that do not match have a larger distance between them. \footnote{https://arxiv.org/pdf/1503.03832.pdf} The model represents each the faces in the training set into a 128 dimensional vector which are labelled and used for recognition of faces. When a new test image is entered into the system, it goes through the network to form a 128 dimensional vector. This vector is then compared with the training set. The lowest distance between the test image and training set is used to recognise the face in the image. \footnote{https://github.com/davidsandberg/facenet}
-After the implementation of these algorithms, the next step was to run each of the algorithms on a randomly occluded test dataset to calculate the accuracy of face recognition. 
+The general steps to perform recognition using knn are:
+	1. The training data is divided into respective classes.
+	2. K closest neighbours to the new test data are found using distance matrix.
+	3. These points are then analyzed to determine the class of the test data.
+ 	4. The class of the test data is determined by majority class value and is assigned to the data.
 
-\begin{table}[htbp]
-\caption{Source/Destination Machine Combination}
-\begin{center}
-\begin{tabular}{|c|c|}
-\hline
-\textbf{Source}&\textbf{Destination} \\
-\cline{1-2} 
-\hline
-Host & Host  \\
-\hline
-Container & Container  \\
-\hline
-Host & Container \\
-\hline
-Container & Host \\
-\hline
-\end{tabular}
-\label{table 1}
-\end{center}
-\end{table}
+
+One of the major issues for building convolutional neural networks using tensorflow, are the hardware requirements. Since convolutional neural networks are computationally heavy, it is easier to use cloud services. To implement convolutional neural networks, two approaches have been followed i.e. using fuel library \footnote{http://fuel.readthedocs.io/en/latest/overview.html} and facenet\cite{schroff2015facenet}. With fuel library, the network was built with three hidden layers i.e. two convolutional layers and a single dense layer. Since this is a very basic neural network, the accuracy achieved was only about 65\%. 
+
+FaceNet is a simple network that maps the image data to an Euclidean space. This uses the concept of distance and face similarity i.e. the images of same person with small distances between them will be grouped together. Further, there will be a significant difference between images of different people. Subsequently, the recognition task can be completed using knn algorithm. The system uses a triplet image set for training. The triplet is chosen such that two of the images match and one does not. Therefore, the images that match will have smaller distance and can be grouped together while the images that do not match have a larger distance between them. \cite{schroff2015facenet}  The model represents each the faces in the training set into a 128 dimensional vector which are labelled and used for recognition of faces. When a new test image is entered into the system, it goes through the network to form a 128 dimensional vector. This vector is then compared with the training set. The lowest distance between the test image and training set is used to recognise the face in the image. 
+After the implementation of these algorithms, the next step was to run each of the algorithms on a randomly occluded test dataset to calculate the accuracy of face recognition. 
 
 \section{Results and Analysis}
 \label{sec: 5. Results and Analysis}
 
+\begin{table}[]
+\centering
+\caption{Overall Face Recognition Accuracy of Different Methods}
+\label{table 1}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Methods} & \begin{tabular}[c]{@{}c@{}}Principal Component \\ Analysis\end{tabular} & \begin{tabular}[c]{@{}c@{}}k Nearest\\  Neighbours\end{tabular} & \begin{tabular}[c]{@{}c@{}}Convolutional\\ Neural \\ Networks\end{tabular} \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Accuracy\\ (Unoccluded \\ Images)\end{tabular}} & 88.1\% & 82.3\% & 99\% \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Accuracy\\ (Occluded\\  Images)\end{tabular}} & 73.5\% & 71.9\% & 97.4\% \\ \hline
+\end{tabular}
+\end{table}
+
+In this section, the results obtained from the experiments have been presented. \ref{table 1} shows the accuracy of face recognition for each of the methods. For each method, the system was trained on unaltered LFW data. Each system was then tested under both unoccluded and occluded conditions. 
+These results vary with a margin of 3%.
+
+From the results, it shows that convolutional neural networks have the highest accuracy while k nearest neighbours algorithm has the lowest accuracy of prediction.
+
+
 \section{Conclusion and Future Work}
 \label{sec: 6.Conclusion and Future Work}
 
-In this work, we have presented a comparative analysis of three widely used face recognition methods: Principal Component Analysis, k-Nearest Neighbour and Convolutional Neural Networks. Among these, convolutional neural networks have shown to be most accurate. Despite their high accuracy rates, CNNs have certain drawbacks. The time required to train these networks increases with the amount of data and number of layers. It also requires high computation power, processing speed and memory. As shown, each algorithm has its own benefits and drawbacks. Hence it is quite impossible to meaningfully rank these methods as there are a number of factors need to be considered. In the end it depends on the application that the appropriate algorithm can be used. There has been a lot of research on face recognition systems under controlled conditions. However there has not been enough research on face recognition under uncontrolled conditions.
+In this work, a comparative analysis of three widely used face recognition methods: Principal Component Analysis, k-Nearest Neighbour and Convolutional Neural Networks has been presented. Among these, convolutional neural networks have shown to be most accurate. Convolutional neural networks are advantageous over other systems due to minimal preprocessing and domain knowledge required to run them. The can effectively handle large amounts of data without any deterioration in performance. Despite their high accuracy rates, CNNs have certain drawbacks. The time required to train these networks increases with the amount of data and number of layers. It also requires high computation power, processing speed and memory. As shown, each algorithm has its own benefits and drawbacks. A meaningfully ranking of these methods depends on a number of factors that need to be considered. Appropriate algorithm should be used for specific applications. 
 
-For future work, the level and area of occlusion of the images can be varied to find a threshold of occlusion that can be applied to images beyond which the above described face recognition methods resort to only a chance level accuracy. In such cases, new algorithms need to be developed which can easily identify occluded images. Most of the work deals with face recognition using two dimensional images. The accuracy of prediction can be enhanced by using three dimensional face recognition systems. \cite{mileo2008wireless} 
+For future work, the level and area of occlusion of the images can be varied to find a threshold of occlusion that can be applied to images beyond which the above described face recognition methods resort to only a chance level accuracy. In such cases, new algorithms need to be developed which can easily identify occluded images. Most of the work deals with face recognition using two dimensional images. The accuracy of prediction can be enhanced by using three dimensional face recognition systems.
 
 
 \section*{Acknowledgment}
 This work was supported by Dublin City University (DCU), Dublin, Ireland and Dr.Alessandra Mileo, School of Computing, DCU.
 
-\MK{remove reference number 9}
 \bibliographystyle{IEEEtran}
 \bibliography{refs.bib}
 
