@@ -41,7 +41,8 @@ Face Recognition; Occlusion; Principal Component Analysis; k Nearest Neighbour; 
 \end{IEEEkeywords}
 
 \section{Introduction}
-\label{sec: 1.introduction}
+\label{sec: 1.introduction} \\
+
 Unlike face detection which deals with identifying the presence of a face in an image, face recognition deals with the feature extraction and recognition of the face in an image. Facial recognition techniques have proven beneficial predominantly in the field of security. Face recognition is the preferred choice over other biometrics like iris scans or fingerprints as it is a non intrusive and robust method of identification. As a whole, face recognition can be seen as a classification task with inputs as images and the outputs as identity of a person. 
 
 \begin{figure}[h!]
@@ -139,6 +140,7 @@ The general steps to perform face recognition using PCA are:
 
 This model is then tested on an unknown dataset to measure accuracy of recognition. in the next step, data is randomly occluded and used as test dataset. precision, recall, f1-score and support have been calculated along with confusion matrix as a measure of accuracy of prediction. 
 
+
 \subsection{k Nearest Neighbour}
 \label{subsec:3.2 k Nearest Neighbour}
 k Nearest Neighbour method is preferred over other classifiers due its simplicity and robustness in multi model classification. It also requires lesser execution time and offers better accuracy. It is efficient in classifying test data based on closest training data in the feature space. An image is classified by a taking a majority vote of the neighbouring classes. The euclidean distance between a given test and each training image features is computed. 
@@ -213,6 +215,8 @@ To implement face recognition using PCA, the LFW image data set is loaded as num
 
 Even though the system is not very complex, it produces efficient results. The algorithm accurately recognises a large number of images from the data. To quantify the efficiency of the algorithm, various measures from sklearn.metrics have been used. The classification report gives the precision, recall, f1-score and support for the classification. 
 
+Even though the system is not very complex, it produces efficient results. The algorithm accurately recognises a large number of images from the data. To quantify the efficiency of the algorithm, various measures from sklearn.metrics have been used. The classification report gives the precision, recall, f1-score and support for the classification \cite{scikit-learn}.
+
 k-nearest neighbour algorithm goes through the entire data for every test datapoint to find the k nearest or most similar instances to the training data. Euclidean distance measure is most commonly used for this algorithm. The other widely used measures are Manhattan distance, Jaccard distance, Minkowski distance etc. scikit-learn library and functions have been used to implement k-nearest neighbour algorithm. The underlying data structure to find the nearest neighbours using Euclidean distance BallTree. 
 
 The general steps to perform recognition using knn are:
@@ -243,7 +247,7 @@ After the implementation of these algorithms, the next step was to run each of t
 \end{table}
 
 In this section, the results obtained from the experiments have been presented. \ref{table 1} shows the accuracy of face recognition for each of the methods. For each method, the system was trained on unaltered LFW data. Each system was then tested under both unoccluded and occluded conditions. 
-These results vary with a margin of 3%.
+These results vary with a margin of 3\%.
 
 From the results, it shows that convolutional neural networks have the highest accuracy while k nearest neighbours algorithm has the lowest accuracy of prediction.
 
